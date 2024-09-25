@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/:studentId', async (req, res) => {
   try {
     const studentId = req.params.studentId;
+    console.log(`fetching restrictions for studentId: ${studentId}`);
     const restrictionsRef = db.collection('restrictions');
     const snapshot = await restrictionsRef.where('studentId', '==', studentId).get();
 
@@ -34,7 +35,7 @@ router.get('/validate/:studentId', async (req, res) => {
       return res.status(200).send('este estudiante no tiene restricciones.');
     }
 
-    res.status(403).send('este estudiante tiene restricciones.');
+    res.status(403).send('este estudiante sí tiene restricciones.');
   } catch (error) {
     res.status(500).send('error al validar estudiante: ' + error.message);
   }
