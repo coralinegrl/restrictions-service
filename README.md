@@ -1,4 +1,4 @@
-### Restriction Service
+# Restriction Service
 ## Descripción
 Este servicio es parte de un sistema de microservicios diseñado para manejar restricciones de estudiantes. Permite a los administradores realizar las siguientes acciones:
 
