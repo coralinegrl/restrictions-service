@@ -1,7 +1,7 @@
 const express = require('express');
 const { v4: uuidv4 } = require('uuid'); //identificadores únicos para las restricciones
 const db = require('../config/firebase'); //importar firestore
-const authenticateToken = require('../middleware/auth'); //middleware de autenticación
+//const authenticateToken = require('../middleware/auth'); //middleware de autenticación
 const router = express.Router();
 
 //obtener todas las restricciones de un estudiante
@@ -42,7 +42,7 @@ router.get('/validate/:studentId', async (req, res) => {
 });
 
 //asignar una nueva restricción (solo admin)
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { studentId, reason } = req.body;
     if (!studentId || !reason) {
@@ -64,7 +64,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 //eliminar una restricción (solo admin)
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const restrictionId = req.params.id;
     await db.collection('restrictions').doc(restrictionId).delete();
