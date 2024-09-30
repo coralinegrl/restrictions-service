@@ -4,7 +4,15 @@ const db = require('../config/firebase'); //importar firestore
 //const authenticateToken = require('../middleware/auth'); //middleware de autenticación
 const router = express.Router();
 
-//obtener todas las restricciones de un estudiante
+/**
+ * @swagger
+ * /restrictions:
+ *   get:
+ *     summary: Obtener todas las restricciones
+ *     responses:
+ *       200:
+ *         description: Lista de restricciones
+ */
 router.get('/:studentId', async (req, res) => {
   try {
     const studentId = req.params.studentId;
@@ -24,7 +32,24 @@ router.get('/:studentId', async (req, res) => {
   }
 });
 
-//validar si un estudiante tiene restricciones
+/**
+ * @swagger
+ * /restrictions/validate/{studentId}:
+ *   get:
+ *     summary: Validar si un estudiante tiene restricciones
+ *     parameters:
+ *       - in: path
+ *         name: studentId
+ *         required: true
+ *         description: ID del estudiante
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: El estudiante no tiene restricciones
+ *       403:
+ *         description: El estudiante tiene restricciones
+ */
 router.get('/validate/:studentId', async (req, res) => {
   try {
     const studentId = req.params.studentId;
@@ -41,7 +66,33 @@ router.get('/validate/:studentId', async (req, res) => {
   }
 });
 
-//asignar una nueva restricción (solo admin)
+/**
+ * @swagger
+ * /restrictions:
+ *   post:
+ *     summary: Agregar una restricción
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               studentId:
+ *                 type: string
+ *               reason:
+ *                 type: string
+ *             required:
+ *               - studentId
+ *               - reason
+ *     responses:
+ *       201:
+ *         description: Restricción agregada exitosamente
+ *       400:
+ *         description: ID del estudiante y razón de restricción son requeridas.
+ *       500:
+ *         description: Error al agregar restricción
+ */
 router.post('/', async (req, res) => {
   try {
     const { studentId, reason } = req.body;
@@ -63,7 +114,26 @@ router.post('/', async (req, res) => {
   }
 });
 
-//eliminar una restricción (solo admin)
+/**
+ * @swagger
+ * /restrictions/{id}:
+ *   delete:
+ *     summary: Eliminar una restricción
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la restricción
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Restricción eliminada exitosamente
+ *       404:
+ *         description: Restricción no encontrada
+ *       500:
+ *         description: Error al eliminar restricción
+ */
 router.delete('/:id', async (req, res) => {
   try {
     const restrictionId = req.params.id;
