@@ -2,7 +2,7 @@
   "name": "restrictions-service",
   "version": "1.0.0",
   "description": "Service to manage student restrictions",
-  "main": "index.js",  
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
@@ -10,10 +10,11 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "firebase-admin": "^12.5.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "uuid": "^10.0.0"
   },
   "engines": {
     "node": ">=14.0.0"
   }
 }
-
